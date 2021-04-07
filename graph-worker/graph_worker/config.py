@@ -1,0 +1,5 @@
+NATS_URL="nats:4222"
+S3_URL="s3:80"
+S3_ACCESS_KEY="minio"
+S3_SECRET_KEY="minio123"
+S3_BUCKET="foolish_profit"

@@ -1,0 +1,23 @@
+FROM python:3.8
+
+ENV POETRY_VERSION=1.0.3 \
+    PATH="/root/.poetry/bin:$PATH" \
+    POETRY_NO_INTERACTION=1
+
+WORKDIR /app
+ADD . /app
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    # deps for installing poetry
+    curl \
+    # deps for building python deps
+    build-essential
+
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/${POETRY_VERSION}/get-poetry.py | python && \
+    poetry config virtualenvs.create false
+
+RUN poetry install --no-dev
+
+EXPOSE 8000
+CMD ["python3", "price_worker/main.py"]
